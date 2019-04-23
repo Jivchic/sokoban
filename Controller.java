@@ -27,26 +27,6 @@ public class Controller implements KeyListener{
                 
 		model.move(keyCode);
 
-		/*switch(keyCode) {
-
-			case 37:
-				System.out.println("Left");
-					
-				break;
-
-			case 38:
-				System.out.println("Up");
-				break;
-
-			case 39:
-				System.out.println("Right");
-				break;
-
-			case 40:
-				System.out.println("Down");
-				break;
-			
-		} */
 	}
 
 	

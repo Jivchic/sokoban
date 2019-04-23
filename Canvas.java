@@ -11,6 +11,7 @@ public class Canvas extends JPanel {
 
 		this.model = model;
 
+		setSize(300, 800);
 		setBackground(Color.black);
 		setOpaque(true);
 
@@ -21,9 +22,34 @@ public class Canvas extends JPanel {
 		super.paint(pen);
 
 		pen.setColor(Color.white);
-		pen.drawString("Frolov", model.x, model.y);
+		pen.drawString("Frolov", model.x1, model.y1);
 	
-		pen.setColor(Color.blue);
-		pen.drawRect(model.x1, model.y1, 50, 50);
+		int rx = model.x;
+		int ry = model.y;
+		
+		pen.setColor(Color.blue);		
+
+		if(rx <=0) {
+			rx =0;
+			pen.setColor(Color.red);	
+		} 
+
+		if(ry <=0) {
+			ry =0;
+			pen.setColor(Color.red);	
+		}
+
+		if(rx >=750) {
+			rx =750;
+			pen.setColor(Color.yellow);	
+		} 
+
+		if(ry >=750) {
+			ry =750;
+			pen.setColor(Color.yellow);	
+		}
+		
+		pen.drawRect(rx, ry, 50, 50);
+		//System.out.println("" + rx + ":" + ry);
 	}
 }
