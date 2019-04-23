@@ -1,11 +1,16 @@
 public class Model {
 
 	private Viewer viewer;
+	
 	int x;
 	int y;
+	int h;
+	int w;
 
-	int x1;
-	int y1;
+	int xBigR;
+	int yBigR;
+        int hBigR;
+	int wBigR;
 	
 	Model(Viewer viewer) {
 
@@ -13,9 +18,13 @@ public class Model {
 
 		x = 150;
 		y = 50;
+		h = 50;
+		w = 50;
 
-		x1 = 50;
-		y1 = 50;
+		xBigR = 200;
+		yBigR = 200;
+        	hBigR = 200;
+		wBigR = 200;
 	}
 
 	public void move(int keyCode) {
@@ -23,33 +32,71 @@ public class Model {
 		switch(keyCode) {
 
 			case 37:
-				if(x >0) {
-					x = x -10;
-				}					
+				moveLeft();					
 				break;
 
 			case 38:
-				if(y >0) {
-					y = y -10;
-				}
+				moveUp();
 				break;
 
 			case 39:
-				if(x < 750){
-					x = x +10;
-				}
+				moveRight();
 				break;
 
 			case 40:
-				if(y < 750){
-					y = y +10;
-				}
+				moveDown();
 				break;
 		}
-                
+                check();
 		viewer.update();
 	
 	}
 
+	private void moveLeft() {
+		if(x >0) {
+			x = x -10;
+		}	
+	}
+
+	private void moveUp() {
+		if(y >0) {
+			y = y -10;
+		}
+        }
+
+	private void moveRight() {
+                if(x < 750){
+			x = x +10;
+		}
+       	}
+
+	private void moveDown() {
+		if(y < 750){
+			y = y +10;
+		}
+       	}
+
+	private void check() {
+		if(
+			x >= xBigR
+			&&
+			y >= yBigR
+			&&
+			(x + w)	<= (xBigR + wBigR)
+			&&
+			(y + h) <= (yBigR + hBigR)
+
+		) {
+			System.out.print('*');
+		}
+        }
+
 
 }
+
+
+
+
+
+
+

@@ -20,13 +20,16 @@ public class Canvas extends JPanel {
 	public void paint(Graphics pen) {
 
 		super.paint(pen);
-
+                                                             	
 		pen.setColor(Color.white);
-		pen.drawString("Frolov", model.x1, model.y1);
-	
+                pen.drawRect(model.xBigR, model.yBigR, model.hBigR, model.wBigR);
+
 		int rx = model.x;
 		int ry = model.y;
 		
+		int rh = model.h;
+		int rw = model.w;
+
 		pen.setColor(Color.blue);		
 
 		if(rx <=0) {
@@ -50,6 +53,7 @@ public class Canvas extends JPanel {
 		}
 		
 		pen.drawRect(rx, ry, 50, 50);
+		
 		//System.out.println("" + rx + ":" + ry);
 	}
 }
