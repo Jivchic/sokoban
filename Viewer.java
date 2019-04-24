@@ -13,7 +13,7 @@ public class Viewer {
 		canvas = new Canvas(model);
 
 		JFrame frame = new JFrame("Sokoban");
-		frame.setSize(820, 850);
+		frame.setSize(800, 800);
 		frame.setLocation(200, 0);
 		
 		frame.add("Center", canvas);
@@ -21,7 +21,6 @@ public class Viewer {
 		frame.setVisible(true);
 
 		frame.addKeyListener(controller);		
-
 	}
 
 

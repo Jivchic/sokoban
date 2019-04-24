@@ -11,7 +11,7 @@ public class Canvas extends JPanel {
 
 		this.model = model;
 
-		setSize(300, 800);
+		//setSize(300, 800);
 		setBackground(Color.black);
 		setOpaque(true);
 
@@ -21,39 +21,38 @@ public class Canvas extends JPanel {
 
 		super.paint(pen);
                                                              	
-		pen.setColor(Color.white);
-                pen.drawRect(model.xBigR, model.yBigR, model.hBigR, model.wBigR);
-
-		int rx = model.x;
-		int ry = model.y;
+		int start = 50;
+		int x = start;
+		int y = start;
 		
-		int rh = model.h;
-		int rw = model.w;
+		int width  = 50;
+		int heigth = 50;
+		int offset = 5;
 
-		pen.setColor(Color.blue);		
+		for(int i =0; i < model.desktop.length; i++) {
+			for(int j =0; j <model.desktop[i].length; j++) {
+				if(model.desktop[i][j] ==1) {
+					pen.setColor(Color.yellow);
+					pen.fillRect(x, y, width, heigth);
+					pen.setColor(Color.white);
+					pen.drawRect(x, y, width, heigth);
+				
+				} else if(model.desktop[i][j] ==2) {
+					pen.setColor(Color.blue);
+					pen.fillRect(x, y, width, heigth);
+					pen.setColor(Color.white);
+					pen.drawRect(x, y, width, heigth);
+				
+				} else {
+					pen.setColor(Color.white);
+					pen.drawRect(x, y, width, heigth);
+				}
 
-		if(rx <=0) {
-			rx =0;
-			pen.setColor(Color.red);	
-		} 
-
-		if(ry <=0) {
-			ry =0;
-			pen.setColor(Color.red);	
+				x = x + width + offset;
+			}
+		
+		        x = start;
+			y = y + heigth + offset;
 		}
-
-		if(rx >=750) {
-			rx =750;
-			pen.setColor(Color.yellow);	
-		} 
-
-		if(ry >=750) {
-			ry =750;
-			pen.setColor(Color.yellow);	
-		}
-		
-		pen.drawRect(rx, ry, 50, 50);
-		
-		//System.out.println("" + rx + ":" + ry);
 	}
 }

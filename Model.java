@@ -2,29 +2,32 @@ public class Model {
 
 	private Viewer viewer;
 	
-	int x;
-	int y;
-	int h;
-	int w;
+	int indexX;
+	int indexY;
 
-	int xBigR;
-	int yBigR;
-        int hBigR;
-	int wBigR;
-	
+	int [][] desktop;
+	int cursor;
+
 	Model(Viewer viewer) {
 
 		this.viewer = viewer;
 
-		x = 150;
-		y = 50;
-		h = 50;
-		w = 50;
+		desktop = new int[][]
+			{
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 2, 2, 2, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 2, 2, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+			};
 
-		xBigR = 200;
-		yBigR = 200;
-        	hBigR = 200;
-		wBigR = 200;
+		indexX =1;
+		indexY =2;
 	}
 
 	public void move(int keyCode) {
@@ -53,31 +56,63 @@ public class Model {
 	}
 
 	private void moveLeft() {
-		if(x >0) {
-			x = x -10;
+		
+		if(indexY >0) {
+
+			if(desktop[indexX][indexY -1] ==2) {
+				return;                	
+			}
+			
+			desktop[indexX][indexY] =0;
+			indexY = indexY -1;
+			desktop[indexX][indexY] =1;	
 		}	
 	}
 
 	private void moveUp() {
-		if(y >0) {
-			y = y -10;
+		
+		if(indexX >0) {
+
+			if(desktop[indexX -1][indexY] ==2) {
+				return;                	
+			}
+			
+			desktop[indexX][indexY] =0;
+			indexX = indexX -1;
+			desktop[indexX][indexY] =1;	
 		}
         }
 
 	private void moveRight() {
-                if(x < 750){
-			x = x +10;
+                
+                if(indexY <9) {
+
+			if(desktop[indexX][indexY +1] ==2) {
+				return;                	
+			}
+			
+			desktop[indexX][indexY] =0;
+			indexY = indexY +1;
+			desktop[indexX][indexY] =1;	
 		}
        	}
 
 	private void moveDown() {
-		if(y < 750){
-			y = y +10;
+		
+		if(indexX <9) {
+
+			if(desktop[indexX +1][indexY] ==2) {
+				return;                	
+			}
+			
+			desktop[indexX][indexY] =0;
+			indexX = indexX +1;
+			desktop[indexX][indexY] =1;	
 		}
        	}
 
 	private void check() {
-		if(
+		/*if(
 			x >= xBigR
 			&&
 			y >= yBigR
@@ -88,7 +123,7 @@ public class Model {
 
 		) {
 			System.out.print('*');
-		}
+		}*/
         }
 
 
