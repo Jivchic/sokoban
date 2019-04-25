@@ -6,7 +6,7 @@ public class Model {
 	int indexY;
 
 	int [][] desktop;
-	int cursor;
+	int next;
 
 	Model(Viewer viewer) {
 
@@ -59,7 +59,8 @@ public class Model {
 		
 		if(indexY >0) {
 
-			if(desktop[indexX][indexY -1] ==2) {
+			next = desktop[indexX][indexY -1];
+			if(next ==2) {
 				return;                	
 			}
 			
@@ -73,7 +74,8 @@ public class Model {
 		
 		if(indexX >0) {
 
-			if(desktop[indexX -1][indexY] ==2) {
+			next = desktop[indexX -1][indexY];
+			if(next ==2) {
 				return;                	
 			}
 			
@@ -87,7 +89,8 @@ public class Model {
                 
                 if(indexY <9) {
 
-			if(desktop[indexX][indexY +1] ==2) {
+			next = desktop[indexX][indexY +1];
+			if(next ==2) {
 				return;                	
 			}
 			
@@ -101,9 +104,8 @@ public class Model {
 		
 		if(indexX <9) {
 
-			if(desktop[indexX +1][indexY] ==2) {
-				return;                	
-			}
+			next = desktop[indexX +1][indexY];
+			if(next ==2) return;               	
 			
 			desktop[indexX][indexY] =0;
 			indexX = indexX +1;

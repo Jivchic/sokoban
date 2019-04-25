@@ -29,15 +29,18 @@ public class Canvas extends JPanel {
 		int heigth = 50;
 		int offset = 5;
 
+		int cursor;
 		for(int i =0; i < model.desktop.length; i++) {
 			for(int j =0; j <model.desktop[i].length; j++) {
-				if(model.desktop[i][j] ==1) {
+
+				cursor = model.desktop[i][j];
+				if(cursor ==1) {
 					pen.setColor(Color.yellow);
 					pen.fillRect(x, y, width, heigth);
 					pen.setColor(Color.white);
 					pen.drawRect(x, y, width, heigth);
 				
-				} else if(model.desktop[i][j] ==2) {
+				} else if(cursor ==2) {
 					pen.setColor(Color.blue);
 					pen.fillRect(x, y, width, heigth);
 					pen.setColor(Color.white);
