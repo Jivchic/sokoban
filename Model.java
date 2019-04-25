@@ -7,11 +7,13 @@ public class Model {
 
 	int [][] desktop;
 	int next;
+	char dir;
 
 	Model(Viewer viewer) {
 
 		this.viewer = viewer;
 
+		dir = 'S';
 		desktop = new int[][]
 			{
 				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -20,7 +22,7 @@ public class Model {
 				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 2, 2, 2, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 3, 0},
 				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
@@ -56,7 +58,8 @@ public class Model {
 	}
 
 	private void moveLeft() {
-		
+		dir = 'L';
+		//System.out.println(dir);	
 		if(indexY >0) {
 
 			next = desktop[indexX][indexY -1];
@@ -86,7 +89,8 @@ public class Model {
         }
 
 	private void moveRight() {
-                
+                dir = 'R';
+		//System.out.println(dir);
                 if(indexY <9) {
 
 			next = desktop[indexX][indexY +1];
