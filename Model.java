@@ -16,16 +16,21 @@ public class Model {
 		dir = 'S';
 		desktop = new int[][]
 			{
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 2, 2, 2, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 2, 2, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 3, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			};
 
 		indexX =1;
@@ -52,84 +57,97 @@ public class Model {
 				moveDown();
 				break;
 		}
-                check();
+               
 		viewer.update();
 	
 	}
 
 	private void moveLeft() {
-		dir = 'L';
-		//System.out.println(dir);	
-		if(indexY >0) {
-
-			next = desktop[indexX][indexY -1];
-			if(next ==2) {
-				return;                	
-			}
+		dir = 'L';	
+		
+		next = desktop[indexX][indexY -1];
+		if(next ==3) {
+			if(checkIndex(indexX, indexY -2) && desktop[indexX][indexY -2] ==0) {
+				desktop[indexX][indexY -2] =3;
+				desktop[indexX][indexY -1] =0;	
+			}                	
+		}
 			
+		next = desktop[indexX][indexY -1];
+		if(next ==0) {
 			desktop[indexX][indexY] =0;
-			indexY = indexY -1;
-			desktop[indexX][indexY] =1;	
+			indexY--;
+			desktop[indexX][indexY] =1;	                	
 		}	
 	}
 
 	private void moveUp() {
+		dir = 'U';		
 		
-		if(indexX >0) {
-
-			next = desktop[indexX -1][indexY];
-			if(next ==2) {
-				return;                	
+		next = desktop[indexX -1][indexY];
+		if(next ==3) {
+			if(checkIndex(indexX-2, indexY) && desktop[indexX -2][indexY] ==0) {
+					desktop[indexX -2][indexY] =3;
+					desktop[indexX -1][indexY] =0;	
+				}                	
 			}
-			
+
+		next = desktop[indexX -1][indexY];
+		if(next ==0) {
 			desktop[indexX][indexY] =0;
 			indexX = indexX -1;
-			desktop[indexX][indexY] =1;	
+			desktop[indexX][indexY] =1;	                	
 		}
         }
 
 	private void moveRight() {
                 dir = 'R';
-		//System.out.println(dir);
-                if(indexY <9) {
+		if(indexY <14) {
 
 			next = desktop[indexX][indexY +1];
-			if(next ==2) {
-				return;                	
+			if(next ==3) {
+				if(desktop[indexX][indexY +2] ==0) {
+					desktop[indexX][indexY +2] =3;
+					desktop[indexX][indexY +1] =0;	
+				}                	
 			}
-			
-			desktop[indexX][indexY] =0;
-			indexY = indexY +1;
-			desktop[indexX][indexY] =1;	
+	
+			next = desktop[indexX][indexY +1];
+			if(next ==0) {
+				desktop[indexX][indexY] =0;
+				indexY = indexY +1;
+				desktop[indexX][indexY] =1;	                	
+			}	
 		}
        	}
 
 	private void moveDown() {
-		
-		if(indexX <9) {
+		dir = 'D';		
+		if(indexX <14) {
 
 			next = desktop[indexX +1][indexY];
-			if(next ==2) return;               	
-			
-			desktop[indexX][indexY] =0;
-			indexX = indexX +1;
-			desktop[indexX][indexY] =1;	
+			if(next ==3) {
+				if(desktop[indexX +2][indexY] ==0) {
+					desktop[indexX +2][indexY] =3;
+					desktop[indexX +1][indexY] =0;	
+				}                	
+			}
+
+			next = desktop[indexX +1][indexY];
+			if(next ==0) {               	
+				desktop[indexX][indexY] =0;
+				indexX = indexX +1;
+				desktop[indexX][indexY] =1;
+			}	
 		}
        	}
 
-	private void check() {
-		/*if(
-			x >= xBigR
-			&&
-			y >= yBigR
-			&&
-			(x + w)	<= (xBigR + wBigR)
-			&&
-			(y + h) <= (yBigR + hBigR)
-
-		) {
-			System.out.print('*');
-		}*/
+	private boolean checkIndex(int ix, int iy) {
+		if(ix <0 || ix > desktop.length || iy <0 || iy > desktop[0].length) {
+			return false;
+		} else {
+			return true;
+		}
         }
 
 

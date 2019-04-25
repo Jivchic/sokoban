@@ -39,9 +39,9 @@ public class Canvas extends JPanel {
 		try {
 			imaGamerS = ImageIO.read(fileGamerS);
 			imaGamerL = ImageIO.read(fileGamerL);
-			//imaGamerU = ImageIO.read(fileGamerU);
+			imaGamerU = ImageIO.read(fileGamerU);
 			imaGamerR = ImageIO.read(fileGamerR);
-			//imaGamerD = ImageIO.read(fileGamerD);
+			imaGamerD = ImageIO.read(fileGamerD);
 			imaWall  = ImageIO.read(fileWall);
 			imaBox   = ImageIO.read(fileBox);
 		} catch(IOException e) {
@@ -71,15 +71,15 @@ public class Canvas extends JPanel {
 
 				cursor = model.desktop[i][j];
 				if(cursor ==1) {
-					/*pen.setColor(Color.yellow);
-					pen.fillRect(x, y, width, heigth);
-					pen.setColor(Color.white);
-					pen.drawRect(x, y, width, heigth);*/
-				
-					if(model.dir =='R') {
-						pen.drawImage(imaGamerR, x, y, null);
-					} else if(model.dir =='L') {
+					
+					if(model.dir =='L') {
 						pen.drawImage(imaGamerL, x, y, null);
+					} else if(model.dir =='U') {
+						pen.drawImage(imaGamerU, x, y, null);
+					} else if(model.dir =='R') {
+						pen.drawImage(imaGamerR, x, y, null);
+					} else if(model.dir =='D') {
+						pen.drawImage(imaGamerD, x, y, null);
 					} else { 
 						pen.drawImage(imaGamerS, x, y, null);
 					}	
