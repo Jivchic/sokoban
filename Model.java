@@ -2,8 +2,8 @@ public class Model {
 
 	private Viewer viewer;
 	
-	int indexX;
-	int indexY;
+	int indexX, indexX2, indexX3;
+	int indexY, indexY2, indexY3;
 
 	int [][] desktop;
 	int next;
@@ -16,21 +16,21 @@ public class Model {
 		dir = 'S';
 		desktop = new int[][]
 			{
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+				{2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 2},
+				{2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0},
+				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2},
+				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+				{2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2},
+				{2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2},
+				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 2},
+				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
+				{2, 0, 4, 0, 0, 0, 3, 0, 0, 2, 0, 0, 4, 0, 2},
+				{0, 0, 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
+				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
+				{2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2},
 			};
 
 		indexX =1;
@@ -65,90 +65,108 @@ public class Model {
 	private void moveLeft() {
 		dir = 'L';	
 		
-		next = desktop[indexX][indexY -1];
-		if(next ==3) {
-			if(checkIndex(indexX, indexY -2) && desktop[indexX][indexY -2] ==0) {
-				desktop[indexX][indexY -2] =3;
-				desktop[indexX][indexY -1] =0;	
-			}                	
-		}
-			
-		next = desktop[indexX][indexY -1];
-		if(next ==0) {
-			desktop[indexX][indexY] =0;
-			indexY--;
-			desktop[indexX][indexY] =1;	                	
+		indexX2 = indexX;
+		indexY2 = indexY -1;
+
+                indexX3 = indexX;
+		indexY3 = indexY -2;
+
+		if(takePlay()) {
+			indexY--;	                		
 		}	
 	}
 
 	private void moveUp() {
 		dir = 'U';		
 		
-		next = desktop[indexX -1][indexY];
-		if(next ==3) {
-			if(checkIndex(indexX-2, indexY) && desktop[indexX -2][indexY] ==0) {
-					desktop[indexX -2][indexY] =3;
-					desktop[indexX -1][indexY] =0;	
-				}                	
-			}
+		indexX2 = indexX -1;
+		indexY2 = indexY;
 
-		next = desktop[indexX -1][indexY];
-		if(next ==0) {
-			desktop[indexX][indexY] =0;
-			indexX = indexX -1;
-			desktop[indexX][indexY] =1;	                	
+                indexX3 = indexX -2;
+		indexY3 = indexY;
+
+		if(takePlay()) {
+			indexX--;	                		
 		}
         }
 
 	private void moveRight() {
                 dir = 'R';
-		if(indexY <14) {
+		
+		indexX2 = indexX;
+		indexY2 = indexY +1;
 
-			next = desktop[indexX][indexY +1];
-			if(next ==3) {
-				if(desktop[indexX][indexY +2] ==0) {
-					desktop[indexX][indexY +2] =3;
-					desktop[indexX][indexY +1] =0;	
-				}                	
-			}
-	
-			next = desktop[indexX][indexY +1];
-			if(next ==0) {
-				desktop[indexX][indexY] =0;
-				indexY = indexY +1;
-				desktop[indexX][indexY] =1;	                	
-			}	
+                indexX3 = indexX;
+		indexY3 = indexY +2;
+
+		if(takePlay()) {
+			indexY++;	                		
 		}
        	}
 
 	private void moveDown() {
 		dir = 'D';		
-		if(indexX <14) {
+		
+		indexX2 = indexX +1;
+		indexY2 = indexY;
 
-			next = desktop[indexX +1][indexY];
-			if(next ==3) {
-				if(desktop[indexX +2][indexY] ==0) {
-					desktop[indexX +2][indexY] =3;
-					desktop[indexX +1][indexY] =0;	
-				}                	
-			}
+                indexX3 = indexX +2;
+		indexY3 = indexY;
 
-			next = desktop[indexX +1][indexY];
-			if(next ==0) {               	
-				desktop[indexX][indexY] =0;
-				indexX = indexX +1;
-				desktop[indexX][indexY] =1;
-			}	
+		if(takePlay()) {
+			indexX++;	                		
 		}
        	}
 
 	private boolean checkIndex(int ix, int iy) {
-		if(ix <0 || ix > desktop.length || iy <0 || iy > desktop[0].length) {
+		if(ix <0 || ix >= desktop.length || iy <0 || iy >= desktop[0].length) {
 			return false;
 		} else {
 			return true;
 		}
         }
+
+	private void moveBox(int state) {
+		desktop[indexX3][indexY3] = state;
+		desktop[indexX2][indexY2] = (desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
+        }
+
+        private boolean takePlay() {
+
+		if(checkIndex(indexX2, indexY2)) {
+			next = desktop[indexX2][indexY2];
+			if(next ==3) {
+				if(checkIndex(indexX3, indexY3) && desktop[indexX3][indexY3] ==0) {
+					moveBox(3);
+				} else if(checkIndex(indexX3, indexY3) && desktop[indexX3][indexY3] ==4) {
+					moveBox(5);
+				}               	
+			}
+	
+			next = desktop[indexX2][indexY2];
+			if(next ==0) {
+				desktop[indexX2][indexY2] = 1;
+				desktop[indexX][indexY]   = (desktop[indexX][indexY] ==6) ? 4:0; // (condition) ? true : false
+
+				return true;	                	
+			
+			} else if(next ==4) {
+				desktop[indexX2][indexY2] = 6;
+				desktop[indexX][indexY]   = 0;
+
+				return true;	
+
+			} else if(next ==5) {
+				moveBox((desktop[indexX3][indexY3] ==4) ? 5 : 3); // (condition) ? true : false	
+				desktop[indexX2][indexY2] = 6;
+				desktop[indexX][indexY]   = 0;
+
+				return true;                	
+			}	
+		}
+
+		return false;
+        }	
 
 
 }

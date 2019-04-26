@@ -16,8 +16,11 @@ public class Canvas extends JPanel {
 	private Image imaGamerU;
 	private Image imaGamerR;
 	private Image imaGamerD;
+	private Image imaGamerP;
 	private Image imaWall;
 	private Image imaBox;
+	private Image imaBoxDone;
+	
 
 	Canvas(Model model) {
 
@@ -32,9 +35,11 @@ public class Canvas extends JPanel {
 		File fileGamerU = new File("images/gamerU.png");
 		File fileGamerR = new File("images/gamerR.png");
 		File fileGamerD = new File("images/gamerD.png");
+		File fileGamerP = new File("images/gamerP.png");
                 
 		File fileWall  = new File("images/wall.png");
 		File fileBox   = new File("images/box.png");
+		File fileBoxDone   = new File("images/boxDone.png");
 
 		try {
 			imaGamerS = ImageIO.read(fileGamerS);
@@ -42,8 +47,10 @@ public class Canvas extends JPanel {
 			imaGamerU = ImageIO.read(fileGamerU);
 			imaGamerR = ImageIO.read(fileGamerR);
 			imaGamerD = ImageIO.read(fileGamerD);
+			imaGamerP = ImageIO.read(fileGamerP);
 			imaWall  = ImageIO.read(fileWall);
 			imaBox   = ImageIO.read(fileBox);
+			imaBoxDone  = ImageIO.read(fileBoxDone);
 		} catch(IOException e) {
 			System.out.println(e);
 		}
@@ -53,7 +60,7 @@ public class Canvas extends JPanel {
 
 		super.paint(pen);
                                                              	
-		int start = 50;
+		int start = 0;
 		int x = start;
 		int y = start;
 		
@@ -98,7 +105,29 @@ public class Canvas extends JPanel {
 					pen.setColor(Color.white);
 					pen.drawRect(x, y, width, heigth);*/
 
-					pen.drawImage(imaBox, x, y, null);
+					pen.drawImage(imaBox, x, y, null);	
+
+				} else if(cursor ==4) {
+					pen.setColor(Color.green);
+					pen.fillRect(x, y, width, heigth);
+					/*pen.setColor(Color.white);
+					pen.drawRect(x, y, width, heigth);*/
+
+					//pen.drawImage(imaWall, x, y, null);
+
+				} else if(cursor ==5) {
+					/*pen.setColor(Color.blue);
+					pen.fillRect(x, y, width, heigth);*/
+					pen.setColor(Color.yellow);
+					pen.drawRect(x, y, width, heigth);
+
+					pen.drawImage(imaBoxDone, x, y, null);
+
+				} else if(cursor ==6) {
+					pen.setColor(Color.green);
+					pen.drawRect(x, y, width, heigth);
+
+					pen.drawImage(imaGamerP, x, y, null);
 				
 				} else {
 					//pen.setColor(Color.white);
