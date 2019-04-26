@@ -127,8 +127,11 @@ public class Model {
         }
 
 	private void moveBox(int state) {
-		desktop[indexX3][indexY3] = state;
-		desktop[indexX2][indexY2] = (desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
+		
+		if(desktop[indexX3][indexY3] ==4 | desktop[indexX3][indexY3] ==0) {
+			desktop[indexX3][indexY3] = state;
+			desktop[indexX2][indexY2] = (desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
+		}
         }
 
         private boolean takePlay() {
@@ -152,20 +155,20 @@ public class Model {
 			
 			} else if(next ==4) {
 				desktop[indexX2][indexY2] = 6;
-				desktop[indexX][indexY]   = 0;
+				desktop[indexX][indexY]   = (desktop[indexX][indexY] ==6) ? 4:0;
 
 				return true;	
 
 			} else if(next ==5) {
 				moveBox((desktop[indexX3][indexY3] ==4) ? 5 : 3); // (condition) ? true : false	
 				desktop[indexX2][indexY2] = 6;
-				desktop[indexX][indexY]   = 0;
+				desktop[indexX][indexY]   = (desktop[indexX][indexY] ==6) ? 4:0;
 
 				return true;                	
 			}	
 		}
-
-		return false;
+                System.out.println("-");
+		return false; 
         }	
 
 

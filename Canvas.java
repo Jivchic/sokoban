@@ -19,7 +19,7 @@ public class Canvas extends JPanel {
 	private Image imaGamerP;
 	private Image imaWall;
 	private Image imaBox;
-	private Image imaBoxDone;
+	//private Image imaBoxDone;
 	
 
 	Canvas(Model model) {
@@ -39,7 +39,7 @@ public class Canvas extends JPanel {
                 
 		File fileWall  = new File("images/wall.png");
 		File fileBox   = new File("images/box.png");
-		File fileBoxDone   = new File("images/boxDone.png");
+		//File fileBoxDone   = new File("images/boxDone.png");
 
 		try {
 			imaGamerS = ImageIO.read(fileGamerS);
@@ -50,7 +50,7 @@ public class Canvas extends JPanel {
 			imaGamerP = ImageIO.read(fileGamerP);
 			imaWall  = ImageIO.read(fileWall);
 			imaBox   = ImageIO.read(fileBox);
-			imaBoxDone  = ImageIO.read(fileBoxDone);
+			//imaBoxDone  = ImageIO.read(fileBoxDone);
 		} catch(IOException e) {
 			System.out.println(e);
 		}
@@ -116,16 +116,16 @@ public class Canvas extends JPanel {
 					//pen.drawImage(imaWall, x, y, null);
 
 				} else if(cursor ==5) {
-					/*pen.setColor(Color.blue);
-					pen.fillRect(x, y, width, heigth);*/
-					pen.setColor(Color.yellow);
-					pen.drawRect(x, y, width, heigth);
+					pen.setColor(Color.green);
+					pen.fillRect(x, y, width, heigth);
+					//pen.setColor(Color.yellow);
+					//pen.drawRect(x, y, width, heigth);
 
-					pen.drawImage(imaBoxDone, x, y, null);
+					pen.drawImage(imaBox, x, y, null);
 
 				} else if(cursor ==6) {
 					pen.setColor(Color.green);
-					pen.drawRect(x, y, width, heigth);
+					pen.fillRect(x, y, width, heigth);
 
 					pen.drawImage(imaGamerP, x, y, null);
 				
