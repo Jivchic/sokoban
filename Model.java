@@ -1,11 +1,16 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 public class Model {
 
 	private Viewer viewer;
 	
-	int indexX, indexX2, indexX3;
-	int indexY, indexY2, indexY3;
+	int indexX, indexX2, indexX3, backupX;
+	int indexY, indexY2, indexY3, backupY;
 
 	int [][] desktop;
+	int [][] backup = new int[15][15];
+
+
 	int next;
 	char dir;
 
@@ -18,7 +23,7 @@ public class Model {
 			{
 				{2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 				{2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 2},
-				{2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0},
+				{2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 3, 0, 0},
 				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2},
 				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 				{2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2},
@@ -28,7 +33,7 @@ public class Model {
 				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 2},
 				{2, 0, 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
 				{2, 0, 4, 4, 0, 0, 3, 0, 0, 2, 0, 0, 4, 0, 2},
-				{0, 0, 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
+				{0, 0, 4, 0, 0, 0, 0, 3, 0, 2, 0, 0, 3, 0, 2},
 				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
 				{2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2},
 			};
@@ -38,7 +43,14 @@ public class Model {
 	}
 
 	public void move(int keyCode) {
-                
+
+		if(keyCode !=8) {
+
+			backupX = indexX;
+			backupY = indexY;
+			array2Copy(desktop, backup);
+		}
+
 		switch(keyCode) {
 
 			case 37:
@@ -56,10 +68,17 @@ public class Model {
 			case 40:
 				moveDown();
 				break;
+
+			case 8:
+
+				indexX = backupX;
+				indexY = backupY;
+				array2Copy(backup, desktop);
+
+				break;
 		}
                
 		viewer.update();
-	
 	}
 
 	private void moveLeft() {
@@ -68,7 +87,7 @@ public class Model {
 		indexX2 = indexX;
 		indexY2 = indexY -1;
 
-                indexX3 = indexX;
+		indexX3 = indexX;
 		indexY3 = indexY -2;
 
 		if(takePlay()) {
@@ -82,7 +101,7 @@ public class Model {
 		indexX2 = indexX -1;
 		indexY2 = indexY;
 
-                indexX3 = indexX -2;
+		indexX3 = indexX -2;
 		indexY3 = indexY;
 
 		if(takePlay()) {
@@ -90,13 +109,13 @@ public class Model {
 		}
         }
 
-	private void moveRight() {
-                dir = 'R';
+        private void moveRight() {
+		dir = 'R';
 		
 		indexX2 = indexX;
 		indexY2 = indexY +1;
 
-                indexX3 = indexX;
+		indexX3 = indexX;
 		indexY3 = indexY +2;
 
 		if(takePlay()) {
@@ -104,13 +123,13 @@ public class Model {
 		}
        	}
 
-	private void moveDown() {
+       	private void moveDown() {
 		dir = 'D';		
 		
 		indexX2 = indexX +1;
 		indexY2 = indexY;
 
-                indexX3 = indexX +2;
+		indexX3 = indexX +2;
 		indexY3 = indexY;
 
 		if(takePlay()) {
@@ -118,7 +137,7 @@ public class Model {
 		}
        	}
 
-	private boolean checkIndex(int ix, int iy) {
+       	private boolean checkIndex(int ix, int iy) {
 		if(ix <0 || ix >= desktop.length || iy <0 || iy >= desktop[0].length) {
 			return false;
 		} else {
@@ -126,7 +145,7 @@ public class Model {
 		}
         }
 
-	private void moveBox(int state) {
+        private void moveBox(int state) {
 		
 		if(desktop[indexX3][indexY3] ==4 | desktop[indexX3][indexY3] ==0) {
 			desktop[indexX3][indexY3] = state;
@@ -171,11 +190,17 @@ public class Model {
 				return true;                	
 			}	
 		}
-                System.out.println("-");
-		return false; 
+				return false;
         }	
 
+	private void array2Copy(int[][] source, int[][] dest) {
 
+		for(int i =0; i < source.length; i++) {
+			for (int j = 0; j < source[i].length; j++) {
+				dest[i][j] = source[i][j];
+			}
+		}
+	}
 }
 
 

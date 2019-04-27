@@ -70,6 +70,8 @@ public class Canvas extends JPanel {
 
 		int cursor;
 
+		boolean wins = true;
+
 		pen.setColor(Color.white);
 		pen.fillRect(x, y, width *model.desktop.length, heigth *model.desktop[0].length);
 
@@ -92,38 +94,34 @@ public class Canvas extends JPanel {
 					}	
 				
 				} else if(cursor ==2) {
-					/*pen.setColor(Color.blue);
-					pen.fillRect(x, y, width, heigth);
-					pen.setColor(Color.white);
-					pen.drawRect(x, y, width, heigth);*/
-
 					pen.drawImage(imaWall, x, y, null);
 				
 				} else if(cursor ==3) {
-					/*pen.setColor(Color.blue);
-					pen.fillRect(x, y, width, heigth);
-					pen.setColor(Color.white);
-					pen.drawRect(x, y, width, heigth);*/
-
-					pen.drawImage(imaBox, x, y, null);	
+					pen.drawImage(imaBox, x, y, null);
 
 				} else if(cursor ==4) {
+
+					wins = false;
+
 					pen.setColor(Color.green);
 					pen.fillRect(x, y, width, heigth);
-					/*pen.setColor(Color.white);
-					pen.drawRect(x, y, width, heigth);*/
+					pen.setColor(Color.yellow);
+					pen.drawRect(x, y, width, heigth);
 
 					//pen.drawImage(imaWall, x, y, null);
 
 				} else if(cursor ==5) {
 					pen.setColor(Color.green);
 					pen.fillRect(x, y, width, heigth);
-					//pen.setColor(Color.yellow);
-					//pen.drawRect(x, y, width, heigth);
+					pen.setColor(Color.yellow);
+					pen.drawRect(x, y, width, heigth);
 
 					pen.drawImage(imaBox, x, y, null);
 
 				} else if(cursor ==6) {
+
+					wins = false;
+
 					pen.setColor(Color.green);
 					pen.fillRect(x, y, width, heigth);
 
@@ -137,8 +135,12 @@ public class Canvas extends JPanel {
 				x = x + width + offset;
 			}
 		
-		        x = start;
+			x = start;
 			y = y + heigth + offset;
+		}
+
+		if(wins) {
+			System.out.println("You Wins!");
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class Controller implements KeyListener{
 		int keyCode = event.getKeyCode();	
                 
 		model.move(keyCode);
-
+		//System.out.println(keyCode);
 	}
 
 	
