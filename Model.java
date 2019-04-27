@@ -26,8 +26,8 @@ public class Model {
 				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 2},
-				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
-				{2, 0, 4, 0, 0, 0, 3, 0, 0, 2, 0, 0, 4, 0, 2},
+				{2, 0, 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
+				{2, 0, 4, 4, 0, 0, 3, 0, 0, 2, 0, 0, 4, 0, 2},
 				{0, 0, 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
 				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
 				{2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2},
@@ -130,7 +130,7 @@ public class Model {
 		
 		if(desktop[indexX3][indexY3] ==4 | desktop[indexX3][indexY3] ==0) {
 			desktop[indexX3][indexY3] = state;
-			desktop[indexX2][indexY2] = (desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
+			desktop[indexX2][indexY2] = 0; //(desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
 		}
         }
 
@@ -160,7 +160,11 @@ public class Model {
 				return true;	
 
 			} else if(next ==5) {
-				moveBox((desktop[indexX3][indexY3] ==4) ? 5 : 3); // (condition) ? true : false	
+				if(desktop[indexX3][indexY3] !=4 & desktop[indexX3][indexY3] !=0) {
+					return false;
+				}
+
+				moveBox((desktop[indexX3][indexY3] ==4) ? 5 : 3); // (condition) ? true : false
 				desktop[indexX2][indexY2] = 6;
 				desktop[indexX][indexY]   = (desktop[indexX][indexY] ==6) ? 4:0;
 
