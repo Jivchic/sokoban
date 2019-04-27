@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 public class Model {
 
 	private Viewer viewer;
@@ -40,16 +38,13 @@ public class Model {
 
 		indexX =1;
 		indexY =2;
+
+		backupX = indexX;
+		backupY = indexY;
+                array2Copy(desktop, backup);
 	}
 
 	public void move(int keyCode) {
-
-		if(keyCode !=8) {
-
-			backupX = indexX;
-			backupY = indexY;
-			array2Copy(desktop, backup);
-		}
 
 		switch(keyCode) {
 
@@ -148,6 +143,11 @@ public class Model {
         private void moveBox(int state) {
 		
 		if(desktop[indexX3][indexY3] ==4 | desktop[indexX3][indexY3] ==0) {
+
+			backupX = indexX;
+			backupY = indexY;
+			array2Copy(desktop, backup);
+
 			desktop[indexX3][indexY3] = state;
 			desktop[indexX2][indexY2] = 0; //(desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
 		}
