@@ -73,7 +73,7 @@ public class Canvas extends JPanel {
 		boolean wins = true;
 
 		pen.setColor(Color.white);
-		pen.fillRect(x, y, width *model.desktop.length, heigth *model.desktop[0].length);
+		pen.fillRect(x, y, width *model.desktop[0].length +50, heigth *model.desktop.length +50);
 
 		for(int i =0; i < model.desktop.length; i++) {
 			for(int j =0; j <model.desktop[i].length; j++) {
@@ -137,10 +137,6 @@ public class Canvas extends JPanel {
 		
 			x = start;
 			y = y + heigth + offset;
-		}
-
-		if(wins) {
-			System.out.println("You Wins!");
 		}
 	}
 }

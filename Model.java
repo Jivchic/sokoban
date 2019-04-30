@@ -5,45 +5,70 @@ public class Model {
 	int indexX, indexX2, indexX3, backupX;
 	int indexY, indexY2, indexY3, backupY;
 
+	Levels levels;
+	int level;
+	int mapX;
+	int mapY;
+
 	int [][] desktop;
-	int [][] backup = new int[15][15];
+	int [][] backup;
 
-
-	int next;
+    int next;
 	char dir;
 
 	Model(Viewer viewer) {
 
 		this.viewer = viewer;
 
-		dir = 'S';
-		desktop = new int[][]
-			{
-				{2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-				{2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 2},
-				{2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0, 3, 0, 0},
-				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2},
-				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-				{2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2},
-				{2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2},
-				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-				{2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 2},
-				{2, 0, 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
-				{2, 0, 4, 4, 0, 0, 3, 0, 0, 2, 0, 0, 4, 0, 2},
-				{0, 0, 4, 0, 0, 0, 0, 3, 0, 2, 0, 0, 3, 0, 2},
-				{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2},
-				{2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2},
-			};
+		level  = viewer.level;
+		levels = new Levels();
+	}
 
-		indexX =1;
-		indexY =2;
+	void loadMap() {
+		
+		System.out.println("x:"+ indexX + "; y:" + indexY + "; s: null");	
+
+		levels.getLevel(level);
+		
+		mapX = levels.mapX;
+		mapY = levels.mapY;
+
+		dir = 'S';
+		
+		desktop = new int[mapY][mapX];
+		desktop = levels.map;
+		backup  = new int[mapY][mapX];
+		
+		System.out.println("x:"+ indexX + "; y:" + indexY + "; s:" + desktop[indexX][indexY]);
+
+		setStartPosition();
+
+		System.out.println("x:"+ indexX + "; y:" + indexY + "; s:" + desktop[indexX][indexY]);
 
 		backupX = indexX;
 		backupY = indexY;
-                array2Copy(desktop, backup);
-	}
+        array2Copy(desktop, backup);
 
+		viewer.setFrame();
+		viewer.update();
+	}
+	
+	void setStartPosition() {
+
+		indexX =0;
+		indexY =0;
+
+		for(int i =0; i < desktop.length; i++) {
+			for(int j = 0; j < desktop[i].length; j++) {
+				if(desktop[i][j] ==1) {
+                    indexX =i;
+					indexY =j;
+                    return;
+				}
+			}
+		}		
+	}
+	
 	public void move(int keyCode) {
 
 		switch(keyCode) {
@@ -71,9 +96,15 @@ public class Model {
 				array2Copy(backup, desktop);
 
 				break;
+		
 		}
-               
+
 		viewer.update();
+               
+		if(wins()) {
+			level++;
+			loadMap();
+		}
 	}
 
 	private void moveLeft() {
@@ -102,9 +133,9 @@ public class Model {
 		if(takePlay()) {
 			indexX--;	                		
 		}
-        }
+    }
 
-        private void moveRight() {
+    private void moveRight() {
 		dir = 'R';
 		
 		indexX2 = indexX;
@@ -116,9 +147,9 @@ public class Model {
 		if(takePlay()) {
 			indexY++;	                		
 		}
-       	}
+    }
 
-       	private void moveDown() {
+    private void moveDown() {
 		dir = 'D';		
 		
 		indexX2 = indexX +1;
@@ -130,17 +161,17 @@ public class Model {
 		if(takePlay()) {
 			indexX++;	                		
 		}
-       	}
+    }
 
-       	private boolean checkIndex(int ix, int iy) {
+    private boolean checkIndex(int ix, int iy) {
 		if(ix <0 || ix >= desktop.length || iy <0 || iy >= desktop[0].length) {
 			return false;
 		} else {
 			return true;
 		}
-        }
+    }
 
-        private void moveBox(int state) {
+    private void moveBox(int state) {
 		
 		if(desktop[indexX3][indexY3] ==4 | desktop[indexX3][indexY3] ==0) {
 
@@ -149,11 +180,11 @@ public class Model {
 			array2Copy(desktop, backup);
 
 			desktop[indexX3][indexY3] = state;
-			desktop[indexX2][indexY2] = 0; //(desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false
+			desktop[indexX2][indexY2] = 0; //(desktop[indexX2][indexY2] ==4) ? 4 : 0; // (condition) ? true : false 
 		}
-        }
+    }
 
-        private boolean takePlay() {
+    private boolean takePlay() {
 
 		if(checkIndex(indexX2, indexY2)) {
 			next = desktop[indexX2][indexY2];
@@ -191,7 +222,7 @@ public class Model {
 			}	
 		}
 				return false;
-        }	
+    }	
 
 	private void array2Copy(int[][] source, int[][] dest) {
 
@@ -201,7 +232,21 @@ public class Model {
 			}
 		}
 	}
+
+	private boolean wins() {
+		for(int i =0; i < desktop.length; i++) {
+			for(int j = 0; j < desktop[i].length; j++) {
+				if(desktop[i][j] ==4 | desktop[i][j] ==6) {
+					return false;
+				}
+			}
+		}
+		
+		return true;				
+	}
 }
+
+
 
 
 
