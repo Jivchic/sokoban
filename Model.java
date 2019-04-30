@@ -39,15 +39,11 @@ public class Model {
 		desktop = levels.map;
 		backup  = new int[mapY][mapX];
 		
-		System.out.println("x:"+ indexX + "; y:" + indexY + "; s:" + desktop[indexX][indexY]);
-
 		setStartPosition();
-
-		System.out.println("x:"+ indexX + "; y:" + indexY + "; s:" + desktop[indexX][indexY]);
 
 		backupX = indexX;
 		backupY = indexY;
-        array2Copy(desktop, backup);
+        	array2Copy(desktop, backup);
 
 		viewer.setFrame();
 		viewer.update();
@@ -60,12 +56,16 @@ public class Model {
 
 		for(int i =0; i < desktop.length; i++) {
 			for(int j = 0; j < desktop[i].length; j++) {
+				
+				System.out.print(desktop[i][j] + " ");
 				if(desktop[i][j] ==1) {
-                    indexX =i;
+                    			indexX =i;
 					indexY =j;
-                    return;
+						
+                    			//return;
 				}
 			}
+                System.out.println();
 		}		
 	}
 	

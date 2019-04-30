@@ -1,4 +1,7 @@
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Viewer {
 	
@@ -7,7 +10,7 @@ public class Viewer {
 	Model model;
 	JFrame frame;	
 
-	int level =0;
+	int level =4;
 
 	Viewer() {
 
