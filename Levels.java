@@ -57,7 +57,7 @@ class Levels {
 			}; 	
 	}
 
-	void level03() {
+	void level01() {
 
 	mapX = 22;
 	mapY = 11;
@@ -100,7 +100,7 @@ class Levels {
 }
 
 
-	void level01(){
+	void level03(){
 
 	mapX = 17;
 	mapY = 10;

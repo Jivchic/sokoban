@@ -96,7 +96,9 @@ public class Model {
 				array2Copy(backup, desktop);
 
 				break;
-		
+		        
+			default: 
+				return; 
 		}
 
 		viewer.update();

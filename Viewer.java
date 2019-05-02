@@ -10,7 +10,7 @@ public class Viewer {
 	Model model;
 	JFrame frame;	
 
-	int level =4;
+	int level =2;
 
 	Viewer() {
 
