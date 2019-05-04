@@ -5,7 +5,7 @@ import javax.swing.JMenuItem;
 
 public class Viewer {
 	
-        private Canvas canvas;
+    private Canvas canvas;
 	Controller controller;
 	Model model;
 	JFrame frame;	
@@ -17,22 +17,38 @@ public class Viewer {
 		controller = new Controller(this);
 		
 		model = controller.getModel();	
-	
 		canvas = new Canvas(model);
 		
-		frame = new JFrame("Sokoban level " + model.level);
-
-		model.loadMap();
-                
+		frame = new JFrame("Sokoban Hello level");
+		frame.setLocationRelativeTo(null);       
+		
+		JMenuBar jMenuBar = new JMenuBar();
+		
+		JMenu jMenuLevel = new JMenu("Levels");
+		
+		JMenuItem jMenuItemL1 = new JMenuItem("Level 1");
+		jMenuLevel.add(jMenuItemL1);
+		
+		JMenuItem jMenuItemL2 = new JMenuItem("Level 2");
+		jMenuLevel.add(jMenuItemL2);
+		
+		
+		jMenuBar.add(jMenuLevel);
+		
+		frame.add(jMenuBar);
+		
 		frame.add("Center", canvas);
 		frame.setVisible(true);
-                frame.addKeyListener(controller);
+        frame.addKeyListener(controller);
+		
+		model.loadMap();
 	}
 
 	public void setFrame() {
 
 		frame.setSize(model.mapX *50 +20, model.mapY *50 +20);
 		frame.setLocation(200, 0);
+		frame.setTitle("Sokoban level " + model.level);
 				
 		System.out.println("setFrame: lvl=" + model.level);
 	}

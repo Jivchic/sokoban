@@ -143,4 +143,9 @@ class Levels {
 	};
 }
 
+	void loadLevelFromFile() {
+		
+		
+	}
+
 }
