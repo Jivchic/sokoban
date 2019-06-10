@@ -26,7 +26,7 @@ public class Model {
 
 	void loadMap() {
 		
-		System.out.println("x:"+ indexX + "; y:" + indexY + "; s: null");	
+		//System.out.println("x:"+ indexX + "; y:" + indexY + "; s: null");	
 
 		levels.getLevel(level);
 		
@@ -57,15 +57,13 @@ public class Model {
 		for(int i =0; i < desktop.length; i++) {
 			for(int j = 0; j < desktop[i].length; j++) {
 				
-				System.out.print(desktop[i][j] + " ");
+				//System.out.print(desktop[i][j] + " ");
 				if(desktop[i][j] ==1) {
                     			indexX =i;
 					indexY =j;
-						
-                    			//return;
 				}
 			}
-                System.out.println();
+                //System.out.println();
 		}		
 	}
 	
