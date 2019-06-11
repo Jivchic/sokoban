@@ -26,6 +26,11 @@ public class Viewer {
 		
 		JMenu jMenuLevel = new JMenu("Levels");
 		
+		// пункты меню
+		JMenuItem jMenuItemF = new JMenuItem("Load from File");
+		jMenuItemF.addActionListener(controller);
+		jMenuLevel.add(jMenuItemF);
+		
 		JMenuItem jMenuItemL1 = new JMenuItem(" * Level 1");
 		jMenuItemL1.addActionListener(controller);
 		jMenuLevel.add(jMenuItemL1);

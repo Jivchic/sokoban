@@ -1,3 +1,7 @@
+
+import java.io.*;
+import javax.swing.*;
+
 public class Model {
 
 	private Viewer viewer;
@@ -244,6 +248,122 @@ public class Model {
 		
 		return true;				
 	}
+
+	public void loadLevelFromFile(File file) {
+
+		FileInputStream in = null;
+
+		try {
+                	in = new FileInputStream(file);
+                        
+			int c;
+			
+                        String trueSymbols = "";
+			
+			while ((c = in.read()) != -1) {
+                        	
+				char symbol = (char)c;
+				//System.out.println(" " + s + " -> " + symbol);
+                    		
+				if ('0' <= symbol && symbol <= '6' || symbol == '\n') {
+                        		trueSymbols = trueSymbols + symbol;
+                    		}
+                	}
+                        
+			in.close();
+
+			String lines[] = trueSymbols.split("\n");
+			
+			int rows = lines.length;
+			
+			int newMap[][] = new int[rows][];
+
+			int col = 0;
+                        for(int i =0; i< lines.length; i++) {
+				if(col < lines[i].length()) {
+					col = lines[i].length();
+				}
+			}
+                        
+			for(int i =0; i< lines.length; i++) {
+				
+				newMap[i] = new int [col]; 
+				
+				String upLine = lines[i] + "00000000000000000000000000";				
+				for(int j = 0; j < col; j++) {
+					if(upLine.charAt(j) != '\n') {
+						newMap[i][j] = Integer.parseInt("" + upLine.charAt(j));
+					}	
+				}
+			}
+                
+		desktop = newMap;
+
+                if(chekMap()) {
+		
+			mapX = col;
+			mapY = rows;
+
+			dir = 'S';
+		
+			backup  = new int[mapY][mapX];
+		
+			setStartPosition();
+                
+			backupX = indexX;
+			backupY = indexY;
+        		array2Copy(desktop, backup);
+
+			viewer.setFrame();
+			viewer.update();
+		} else {
+			System.out.println("Количество элементов игры не правильное!");	
+		}
+		
+		/*for(int i =0; i < newMap.length; i++) {
+			for(int j = 0; j < newMap[i].length; j++) {
+				System.out.print(newMap[i][j]);
+			}
+                	System.out.println();
+		}*/
+                
+		} catch (IOException e) {
+                	System.out.println("Error: " + e);
+            }
+	}
+
+	private boolean chekMap() {
+		
+		int digGamer = 0;
+		int digBox = 0;
+		//int dig1 = 0;
+
+		for(int i =0; i < desktop.length; i++) {
+			for(int j =0; j < desktop[i].length; j++) {
+				
+				int cursor = desktop[i][j];
+				if(cursor == 1 || cursor == 6) {
+					digGamer++;
+				
+				} else if(cursor == 3) {
+					digBox++;
+
+                                } else if(cursor == 4) {
+					digBox--;
+
+				}
+                                System.out.println("digGamer: " + digGamer + "; digBox: " + digBox);
+				if(digGamer >1) {
+					return false;
+				} else if(digBox !=0) {
+					return false;
+				} 
+			}
+		}
+
+		return true;
+	}	
+
 }
 
 

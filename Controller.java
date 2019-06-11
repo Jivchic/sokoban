@@ -4,6 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.io.File;
 
 public class Controller implements KeyListener, ActionListener{
 
@@ -50,7 +54,26 @@ public class Controller implements KeyListener, ActionListener{
 			
 			model.level = numLevel;
                         model.loadMap();
-			//System.out.println("" + numLevel);	
+			//System.out.println("" + numLevel); 	
+		
+		} else if(command.compareToIgnoreCase("Load from File") == 0) {
+			
+			JFileChooser fileChooser = new JFileChooser();
+			
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file with Level", "txt");
+        		fileChooser.setFileFilter(filter);
+        
+			int ret = fileChooser.showDialog(null, "Открыть файл");
+        		if (ret == JFileChooser.APPROVE_OPTION) {
+
+            			File file = fileChooser.getSelectedFile();
+            			
+				model.loadLevelFromFile(file);
+			}
+
+			//model.loadLevelFromFile(file);
 		}
 	
 	}	
