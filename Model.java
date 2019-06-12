@@ -62,7 +62,7 @@ public class Model {
 			for(int j = 0; j < desktop[i].length; j++) {
 				
 				//System.out.print(desktop[i][j] + " ");
-				if(desktop[i][j] ==1) {
+				if(desktop[i][j] ==1 || desktop[i][j] ==6) {
                     			indexX =i;
 					indexY =j;
 				}
@@ -106,6 +106,9 @@ public class Model {
 		viewer.update();
                
 		if(wins()) {
+			
+			JOptionPane.showMessageDialog(null, "You wins level " + level + "!");
+
 			level++;
 			loadMap();
 		}
@@ -265,7 +268,7 @@ public class Model {
 				char symbol = (char)c;
 				//System.out.println(" " + s + " -> " + symbol);
                     		
-				if ('0' <= symbol && symbol <= '6' || symbol == '\n') {
+				if ('0' <= symbol && symbol <= '6' || symbol == '\n' || symbol == ' ') {
                         		trueSymbols = trueSymbols + symbol;
                     		}
                 	}
@@ -291,8 +294,16 @@ public class Model {
 				
 				String upLine = lines[i] + "00000000000000000000000000";				
 				for(int j = 0; j < col; j++) {
-					if(upLine.charAt(j) != '\n') {
-						newMap[i][j] = Integer.parseInt("" + upLine.charAt(j));
+					
+					char symbol = upLine.charAt(j);
+					//System.out.println(symbol);
+
+					if(symbol != '\n') {
+						if(symbol == ' ') {
+							newMap[i][j] = 0;
+						} else {
+							newMap[i][j] = Integer.parseInt("" + symbol);
+						}
 					}	
 				}
 			}
@@ -317,7 +328,8 @@ public class Model {
 			viewer.setFrame();
 			viewer.update();
 		} else {
-			System.out.println("Количество элементов игры не правильное!");	
+			level = 0;
+			loadMap();		
 		}
 		
 		/*for(int i =0; i < newMap.length; i++) {
@@ -336,32 +348,40 @@ public class Model {
 		
 		int digGamer = 0;
 		int digBox = 0;
-		//int dig1 = 0;
+		//System.out.println("Количество элементов игры не правильное!");
 
 		for(int i =0; i < desktop.length; i++) {
 			for(int j =0; j < desktop[i].length; j++) {
 				
 				int cursor = desktop[i][j];
-				if(cursor == 1 || cursor == 6) {
+
+				if(cursor == 1) {
 					digGamer++;
-				
+
+				} else if(cursor == 6) {
+					digGamer++; digBox--;
+                                				
 				} else if(cursor == 3) {
 					digBox++;
 
                                 } else if(cursor == 4) {
 					digBox--;
 
-				}
-                                System.out.println("digGamer: " + digGamer + "; digBox: " + digBox);
-				if(digGamer >1) {
-					return false;
-				} else if(digBox !=0) {
-					return false;
-				} 
+				}				 
 			}
 		}
 
-		return true;
+		if(digGamer !=1) {
+			JOptionPane.showMessageDialog(null, "Gamer must be only 1 \n(num 1, or 6 when Gamer in Goal Zone)");
+			return false;
+
+		} else if(digBox !=0) {
+			JOptionPane.showMessageDialog(null, "Quantity of Goal Zone and Boxes must be the same \n(num 3 for Box, num 4 for Goal Zone)");
+			return false;
+
+		} else {
+			return true;
+		}
 	}	
 
 }
